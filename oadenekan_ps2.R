@@ -108,12 +108,24 @@ cong_age = congress_age
 congress_stats = function(name) {
   valid_input = (name == "congress")|(name == "state")
   if (valid_input) {
-    > unique(ave(cong_age$age, cong_age$state, FUN = function (x) mean(x, na.rm = TRUE)))
+    if (name == "state") {
+      state_ave = unique(ave(cong_age$age, cong_age$state, FUN = function (x) mean(x, na.rm = TRUE)))
+      states = unique(cong_age$state)
+      state_df = data.frame(states, state_ave)
+      return(state_df)
+    }
+    else {
+      congress_ave = unique(ave(cong_age$age, cong_age$congress, FUN = function (x) mean(x, na.rm = TRUE)))
+      congress = unique(cong_age$congress)
+      state_df = data.frame(congress, congress_ave)
+      return(state_df)
+    }
     
   }
   else {
-    print("invalid input")
+    return("invalid input")
   }
 }
 
+congress_stats("congress")
 
