@@ -59,6 +59,7 @@ library(fivethirtyeight)
 # head(cabinet_turnover)
 cab_turn = cabinet_turnover
 
+# funtion to divide by president's number days in office
 which_president = function(name, num_days) {
   if (name == "Clinton") {
     return(num_days/2922)
@@ -83,15 +84,16 @@ which_president = function(name, num_days) {
   }
 }
 
+# funtion to find number of days in office
 appoint = function(name) {
   valid_name = (name == "Carter")|(name == "Reagan")|(name == "Bush 41")|(name == "Clinton")|(name == "Bush 43")|(name == "Obama")|(name == "Trump")
   if (valid_name) {
     # data with president name and no NA in length
     relevant_data  = cab_turn[which((cab_turn$president == name) & !is.na(cab_turn$length)),]
     # sum relevant data at length
-    ave_num_days = sum(relevant_data$length)/nrow(relevant_data)
-    return(ave_num_days)
-    # return(which_president(name, num_days))
+    ave_num_days = sum(relevant_data$days)/nrow(relevant_data)
+    # return(ave_num_days)
+    return(which_president(name, ave_num_days))
   }
   else {
     return("invalid input")
