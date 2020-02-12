@@ -91,7 +91,7 @@ appoint = function(name) {
     # data with president name and no NA in length
     relevant_data  = cab_turn[which((cab_turn$president == name) & !is.na(cab_turn$length)),]
     # sum relevant data at length
-    ave_num_days = sum(relevant_data$days)/nrow(relevant_data)
+    ave_num_days = mean(relevant_data$days)
     # return(ave_num_days)
     return(which_president(name, ave_num_days))
   }
@@ -102,9 +102,18 @@ appoint = function(name) {
 
 appoint("Reagan")
 
+
 #5
-congress_stats = function(stat) {
-  
+cong_age = congress_age
+congress_stats = function(name) {
+  valid_input = (name == "congress")|(name == "state")
+  if (valid_input) {
+    > unique(ave(cong_age$age, cong_age$state, FUN = function (x) mean(x, na.rm = TRUE)))
+    
+  }
+  else {
+    print("invalid input")
+  }
 }
 
 
